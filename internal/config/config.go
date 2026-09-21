@@ -42,11 +42,11 @@ func DefaultConfig() Config {
 			Model:    "deepseek/deepseek-v4-flash",
 			SiteURL:  "http://localhost:8080",
 			SiteName: "llm-router",
-			Timeout:  30 * time.Second,
+			Timeout:  120 * time.Second,
 			APIKey:   "",
 		},
 		Ollama: ProviderConfig{
-			Model:    "llama3",
+			Model:    "llama3.1:8b-instruct-fp16",
 			Endpoint: "http://localhost:11434",
 			Timeout:  120 * time.Second,
 		},
@@ -74,8 +74,8 @@ func Load() (*Config, error) {
 	v.SetDefault("openrouter.model", "deepseek/deepseek-v4-flash")
 	v.SetDefault("openrouter.site_url", "http://localhost:8080")
 	v.SetDefault("openrouter.site_name", "llm-router")
-	v.SetDefault("openrouter.timeout", "30s")
-	v.SetDefault("ollama.model", "llama3")
+	v.SetDefault("openrouter.timeout", "120s")
+	v.SetDefault("ollama.model", "llama3.1:8b-instruct-fp16")
 	v.SetDefault("ollama.endpoint", "http://localhost:11434")
 	v.SetDefault("ollama.timeout", "120s")
 	v.SetDefault("fallback.order", []string{"openrouter", "ollama"})

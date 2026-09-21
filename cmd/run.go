@@ -70,7 +70,16 @@ Tries OpenRouter first, falls back to Ollama on failure.`,
 			CircuitBreakerReset:    cfg.Fallback.CircuitBreakerReset,
 		}, providers)
 
-		eng := router.NewEngine(ctxMgr, orch, tools.NewTranslator(), providers["openrouter"].MaxContextWindow())
+		var maxTokens int
+		if p, ok := providers["openrouter"]; ok {
+			maxTokens = p.MaxContextWindow()
+		} else if p, ok := providers["ollama"]; ok {
+			maxTokens = p.MaxContextWindow()
+		} else {
+			maxTokens = 8192
+		}
+
+		eng := router.NewEngine(ctxMgr, orch, tools.NewTranslator(), maxTokens)
 
 		prompt := ""
 		if len(args) > 0 {

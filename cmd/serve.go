@@ -76,6 +76,8 @@ var serveCmd = &cobra.Command{
 		var maxTokens int
 		if p, ok := providers["openrouter"]; ok {
 			maxTokens = p.MaxContextWindow()
+		} else if p, ok := providers["ollama"]; ok {
+			maxTokens = p.MaxContextWindow()
 		} else {
 			maxTokens = 8192
 		}
