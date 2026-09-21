@@ -1,0 +1,56 @@
+{
+  "dashboard": {
+    "title": "LLM Router",
+    "panels": [
+      {
+        "title": "Request Rate",
+        "type": "graph",
+        "targets": [{
+          "expr": "rate(llm_requests_total[1m])",
+          "legendFormat": "{{provider}} - {{status}}"
+        }]
+      },
+      {
+        "title": "Request Duration",
+        "type": "heatmap",
+        "targets": [{
+          "expr": "llm_request_duration_seconds_bucket",
+          "legendFormat": "{{provider}}"
+        }]
+      },
+      {
+        "title": "Fallback Rate",
+        "type": "graph",
+        "targets": [{
+          "expr": "rate(llm_fallback_total[1m])",
+          "legendFormat": "{{from}} → {{to}}"
+        }]
+      },
+      {
+        "title": "Circuit Breaker State",
+        "type": "stat",
+        "targets": [{
+          "expr": "llm_circuit_breaker_state{provider=\"openrouter\"}",
+          "legendFormat": "State"
+        }]
+      },
+      {
+        "title": "Context Truncation",
+        "type": "graph",
+        "targets": [{
+          "expr": "rate(llm_context_truncated_total[1m])",
+          "legendFormat": "{{strategy}}"
+        }]
+      },
+      {
+        "title": "Token Usage",
+        "type": "graph",
+        "targets": [{
+          "expr": "rate(llm_token_count_sum[1m])",
+          "legendFormat": "{{direction}}"
+        }]
+      }
+    ],
+    "tags": ["llm", "router"]
+  }
+}
