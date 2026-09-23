@@ -1,0 +1,8 @@
+FROM ollama/ollama:latest
+
+ENV OLLAMA_HOST=0.0.0.0
+ENV OLLAMA_MODELS=/tmp/ollama/models
+
+EXPOSE 8080
+
+CMD ["serve"]
